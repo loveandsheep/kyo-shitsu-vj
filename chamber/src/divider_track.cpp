@@ -24,11 +24,19 @@ void tracker::setup()
 	words.push_back("大器");
 	words.push_back("欅");
 	
+	words_e.push_back("substance");
+	words_e.push_back("emerge");
+	words_e.push_back("half");
+	words_e.push_back("mile");
+	words_e.push_back("beach");
+	words_e.push_back("class");
+	words_e.push_back("poly");
+	words_e.push_back("hit");
 }
 
 void tracker::update(ofPixels & image)
 {
-	if (ofGetFrameNum() > 240)
+	if (ofGetFrameNum() > 120)
 	{
 		if (ofGetFrameNum() % 120 == 100) flow.resetFlow();
 		flow.calcOpticalFlow(image);
@@ -40,21 +48,77 @@ void tracker::draw()
 	ofSetColor(255, 51);
 	vector<ofPoint> pts = flow.getFeatures();
 	
-//	ptn_linePlot(pts);
-//	ptn_delaunay(pts);
-	ptn_number(pts);
+	if (presetSW[0]) ptn_number(pts);
+	if (presetSW[1]) ptn_kanji(pts);
+	if (presetSW[2]) ptn_eiji(pts);
+	if (presetSW[3]) ptn_linePlot(pts);
+	if (presetSW[4]) ptn_delaunay(pts);
+	if (presetSW[5]) ptn_horizon(pts);
+	if (presetSW[6]) ptn_rectnoise(pts);
 	
 }
 
-void tracker::ptn_number(const vector<ofPoint> &pts)
+void tracker::ptn_rectnoise(vector<ofPoint> const & pts)
 {
 	for (int i = 0;i < pts.size();i+=pts.size() / 10.0)
 	{
 		ofPushMatrix();
-		ofTranslate(pts[i]);
+		ofTranslate(pts[i] * 1.5);
+		ofSetRectMode(OF_RECTMODE_CENTER);
+		if (i % 3 == 0) ofNoFill();
+		ofDrawRectangle(0, 0,
+						ofMap(ofSignedNoise(pts[i].x / 264.67), 0.2, 0.8, 0.0, 1.0) * 200,
+						ofMap(ofSignedNoise(pts[i].y / 567.34), 0.2, 0.8, 0.0, 1.0) * 200);
+		ofSetRectMode(OF_RECTMODE_CORNER);
+		ofPopMatrix();
+		ofFill();
+	}
+}
+
+void tracker::ptn_horizon(vector<ofPoint> const & pts)
+{
+	for (int i = 0;i < pts.size();i+=15)
+	{
+		ofDrawLine(0, pts[i].y, 1920, pts[i].y);
+	}
+}
+
+void tracker::ptn_kanji(const vector<ofPoint> &pts)
+{
+	for (int i = 0;i < pts.size();i+=pts.size() / 10.0)
+	{
+		ofPushMatrix();
+		ofTranslate(pts[i] * 1.5);
 		float s = ofSignedNoise(i * 342.423) * 3.0;
 		ofScale(s, s);
 		font.drawString(words[words.size() * ofNoise(pts[i].x / 200.0, pts[i].y / 200.0)], 0, 0);
+		ofPopMatrix();
+	}
+}
+
+void tracker::ptn_eiji(const vector<ofPoint> &pts)
+{
+	for (int i = 0;i < pts.size();i+=2)
+	{
+		ofPushMatrix();
+		ofTranslate(pts[i] * 1.5);
+		float s = ofSignedNoise(i * 342.423);
+		ofScale(s, s);
+		font.drawString(words_e[words_e.size() * ofNoise(pts[i].x / 100.0, pts[i].y / 100.0)], 0, 0);
+		ofPopMatrix();
+	}
+}
+
+
+void tracker::ptn_number(const vector<ofPoint> &pts)
+{
+	for (int i = 0;i < pts.size();i+=5)
+	{
+		ofPushMatrix();
+		ofTranslate(pts[i] * 1.5);
+		float s = ofSignedNoise(i * 342.423) * 1.0;
+		ofScale(s, s);
+		font.drawString(ofToString(ofNoise(pts[i].x / 200.0, pts[i].y / 200.0) * 5233.4235), 0, 0);
 		ofPopMatrix();
 	}
 }
@@ -114,4 +178,55 @@ void tracker::ptn_linePlot(vector<ofPoint> const & pts)
 		}
 	}
 	ofSetLineWidth(1.0);
+}
+
+void tracker::trackPreset(int num)
+{
+	//0:数字　1:漢字　2:英字　3:ライン　4:ドロネー　5:横線 6:矩形ノイズ
+	presetSW[0] = 0;
+	presetSW[1] = 0;
+	presetSW[2] = 0;
+	presetSW[3] = 0;
+	presetSW[4] = 0;
+	presetSW[5] = 0;
+	presetSW[6] = 0;
+	
+	num %= 8;
+	
+	if (num == 0)
+	{
+
+	}
+	if (num == 1)
+	{
+		presetSW[4] = 1;
+	}
+	if (num == 2)
+	{
+		presetSW[3] = 1;
+	}
+	if (num == 3)
+	{
+		presetSW[0] = 1;
+		presetSW[5] = 1;
+	}
+	if (num == 4)
+	{
+		presetSW[1] = 1;
+		presetSW[4] = 1;
+	}
+	if (num == 5)
+	{
+		presetSW[2] = 1;
+	}
+	if (num == 6)
+	{
+		presetSW[6] = 1;
+	}
+	if (num == 7)
+	{
+		presetSW[1] = 1;
+		presetSW[5] = 1;
+		presetSW[6] = 1;
+	}
 }

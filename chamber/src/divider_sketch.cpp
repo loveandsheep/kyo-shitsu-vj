@@ -181,6 +181,9 @@ void sketch::colorShuffle()
 		counter++;
 		++it;
 	}
+	
+	ovr_choice = ofRandom(100);
+	track.trackPreset(ofRandom(100));
 }
 
 void sketch::update()
@@ -270,19 +273,10 @@ void sketch::genShading()
 	
 	shader.end();
 	
-//	ovr_grid();
-	
-	for (int i = 0;i < 1920;i+=150)
-	{
-		for (int j = 0;j < 1080;j+=150)
-		{
-			ofPushMatrix();
-			ofTranslate(i, j);
-			ofDrawLine(-5, 0, 5, 0);
-			ofDrawLine(0, -5, 0, 5);
-			ofPopMatrix();
-		}
-	}
+	int mod = ovr_choice % 4;
+	if (mod == 0) ovr_grid();
+	if (mod == 1) ovr_cross();
+	if (mod == 2) ovr_trigrid();
 	
 	buffer_dst.end();
 	
@@ -415,6 +409,50 @@ void sketch::initShader()
 
 }
 
+void sketch::ovr_trigrid()
+{
+	static bool bGrid = false;
+	static vector<ofVec2f> vts;
+	
+	if (!bGrid)
+	{
+		for (int i = 0;i < 1080;i+=30)
+		{
+			vts.push_back(ofVec2f(0, i));
+			vts.push_back(ofVec2f(1920, i));
+		}
+		for (float i = -3000;i < 3000;i+=34.641016)
+		{
+			vts.push_back(ofVec2f(i, 0));
+			vts.push_back(ofVec2f(i + 2000 * cos(ofDegToRad(60)), 2000 * sin(ofDegToRad(60))));
+			vts.push_back(ofVec2f(i, 0));
+			vts.push_back(ofVec2f(i - 2000 * cos(ofDegToRad(60)), 2000 * sin(ofDegToRad(60))));
+		}
+
+		bGrid = true;
+	}
+
+	ofSetColor(255, 50);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(2, GL_FLOAT, 0, &vts[0]);
+	glDrawArrays(GL_LINES, 0, vts.size());
+	glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+void sketch::ovr_cross()
+{
+	for (int i = 0;i < 1920;i+=150)
+	{
+		for (int j = 0;j < 1080;j+=150)
+		{
+			ofPushMatrix();
+			ofTranslate(i, j);
+			ofDrawLine(-5, 0, 5, 0);
+			ofDrawLine(0, -5, 0, 5);
+			ofPopMatrix();
+		}
+	}
+}
 
 void sketch::ovr_grid()
 {

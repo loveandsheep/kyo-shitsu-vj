@@ -39,7 +39,11 @@ namespace divider{
 		void drawVideoSelector(int x, int y);
 		void colorShuffle();
 		
+		int ovr_choice = 0;
+		
 		void ovr_grid();
+		void ovr_cross();
+		void ovr_trigrid();
 		
 		ofFbo		buffer;
 		ofFbo		buffer_dst;

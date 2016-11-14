@@ -21,9 +21,14 @@ namespace divider
 		void update(ofPixels & image);
 		void draw();
 		
+		bool presetSW[7];
 		void ptn_number(vector<ofPoint> const & pts);
+		void ptn_kanji(vector<ofPoint> const & pts);
+		void ptn_eiji(vector<ofPoint> const & pts);
 		void ptn_linePlot(vector<ofPoint> const & pts);
 		void ptn_delaunay(vector<ofPoint> const & pts);
+		void ptn_horizon(vector<ofPoint> const & pts);
+		void ptn_rectnoise(vector<ofPoint> const & pts);
 		
 		ofxCv::FlowPyrLK flow;
 		
@@ -31,6 +36,9 @@ namespace divider
 		ofxTrueTypeFontUC font;
 		
 		vector<string> words;
+		vector<string> words_e;
+	
+		void trackPreset(int num);
 	};
 }
 
