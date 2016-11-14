@@ -10,6 +10,7 @@
 #define divider_sketch_hpp
 
 #include "ofMain.h"
+#include "dmMeasureTool.h"
 #include "ofxKsmrFragmentFx.h"
 #include "divider_palette.h"
 #include "ofxEasing.h"
@@ -35,7 +36,10 @@ namespace divider{
 		void initShader();
 		void genShading();
 		void drawColorSelector(int x, int y);
+		void drawVideoSelector(int x, int y);
 		void colorShuffle();
+		
+		void ovr_grid();
 		
 		ofFbo		buffer;
 		ofFbo		buffer_dst;

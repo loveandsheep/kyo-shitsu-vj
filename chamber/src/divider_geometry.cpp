@@ -382,12 +382,12 @@ void geometry::draw()
 
 int geometry::getFrame()
 {
-	return ofGetFrameNum() - startFrame;
+	return (ofGetFrameNum() - startFrame) * 60.0 / ofGetFrameRate();
 }
 
 float geometry::getTime()
 {
-	return ofMap(ofGetFrameNum() - startFrame, 0, 10.0 / frameSpeed, 0.0, 1.0, true);
+	return ofMap(getFrame(), 0, 10.0 / frameSpeed, 0.0, 1.0, true);
 }
 
 void geometry::release()

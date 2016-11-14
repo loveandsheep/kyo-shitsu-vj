@@ -11,6 +11,7 @@
 
 #include "ofxCv.h"
 #include "ofxDelaunay.h"
+#include "ofxTrueTypeFontUC.h"
 
 namespace divider
 {
@@ -20,12 +21,16 @@ namespace divider
 		void update(ofPixels & image);
 		void draw();
 		
+		void ptn_number(vector<ofPoint> const & pts);
 		void ptn_linePlot(vector<ofPoint> const & pts);
 		void ptn_delaunay(vector<ofPoint> const & pts);
 		
 		ofxCv::FlowPyrLK flow;
 		
 		ofxDelaunay delaunay;
+		ofxTrueTypeFontUC font;
+		
+		vector<string> words;
 	};
 }
 

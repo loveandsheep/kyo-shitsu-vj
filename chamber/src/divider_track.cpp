@@ -12,6 +12,17 @@ using namespace divider;
 
 void tracker::setup()
 {
+	font.load("min6.ttc", 72);
+	
+	words.push_back("､ｮ､鬢ｮ､鬢ﾒ､ｫ､?ﾎﾇ");
+	words.push_back("ﾀﾖ､､､ｳ､ﾉ､筅ｿ､ﾁ｡");
+	words.push_back("ｵｭ､ﾊﾀﾐ､ﾎｷ摠ｪ");
+	words.push_back("ﾋﾎ荀ｿ､ｵ､筅ﾄ");
+	words.push_back("ﾎ､ﾒ､ﾈ､ｿ､ﾁ｡｢･ﾕ");
+	words.push_back("色味");
+	words.push_back("官爵");
+	words.push_back("大器");
+	words.push_back("欅");
 	
 }
 
@@ -29,32 +40,23 @@ void tracker::draw()
 	ofSetColor(255, 51);
 	vector<ofPoint> pts = flow.getFeatures();
 	
-	ptn_linePlot(pts);
+//	ptn_linePlot(pts);
 //	ptn_delaunay(pts);
+	ptn_number(pts);
 	
-	
-//	delaunay.reset();
-//	for (int i = 0;i < pts.size();i+=pts.size() / 10.0) delaunay.addPoint(pts[i]);
-//	delaunay.triangulate();
-//	
-//	ofPushMatrix();
-//	ofScale(1.5, 1.5);
-//	ofNoFill();
-//	ofFill();
-//	if (delaunay.getNumTriangles() > 0)
-//	{
-//		vector<ofVec3f> pt = delaunay.getPointsForITriangle(delaunay.getTriangleAtIndex(0));
-//		for (int i = 0;i < pt.size();i++)
-//		{
-//			cout << pt[i] << endl;
-//		}
-//		glEnableClientState(GL_VERTEX_ARRAY);
-//		glVertexPointer(3, GL_FLOAT, 0, &pt[0]);
-//		glDrawArrays(GL_TRIANGLES, 0, pt.size());
-//		glDisableClientState(GL_VERTEX_ARRAY);
-//	}
-//	ofPopMatrix();
+}
 
+void tracker::ptn_number(const vector<ofPoint> &pts)
+{
+	for (int i = 0;i < pts.size();i+=pts.size() / 10.0)
+	{
+		ofPushMatrix();
+		ofTranslate(pts[i]);
+		float s = ofSignedNoise(i * 342.423) * 3.0;
+		ofScale(s, s);
+		font.drawString(words[words.size() * ofNoise(pts[i].x / 200.0, pts[i].y / 200.0)], 0, 0);
+		ofPopMatrix();
+	}
 }
 
 void tracker::ptn_delaunay(const vector<ofPoint> &pts)

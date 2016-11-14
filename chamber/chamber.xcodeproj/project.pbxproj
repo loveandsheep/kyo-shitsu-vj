@@ -48,6 +48,8 @@
 		C601590E1DD7564900048138 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C60159071DD7564900048138 /* README.md */; };
 		C601590F1DD7564900048138 /* ofxDelaunay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C60159091DD7564900048138 /* ofxDelaunay.cpp */; };
 		C602002DE761F9B52DB4400A /* ObjectFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE75A3FBA2C2D87D14F06FE6 /* ObjectFinder.cpp */; };
+		C6362F2C1DD9BB920031C223 /* ofxTrueTypeFontUC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C6362F271DD9BB920031C223 /* ofxTrueTypeFontUC.cpp */; };
+		C66D00731DD97F8C0070FA74 /* dmMeasureTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C66D00711DD97F8C0070FA74 /* dmMeasureTool.cpp */; };
 		C696F1841D7169F700B2E2B3 /* ofxKsmrFragFXUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C696F17E1D7169F700B2E2B3 /* ofxKsmrFragFXUnit.cpp */; };
 		C696F1851D7169F700B2E2B3 /* ofxKsmrFragmentFx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C696F1801D7169F700B2E2B3 /* ofxKsmrFragmentFx.cpp */; };
 		C6D4E5D81D6321EC002DE5C8 /* divider_geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C6D4E5D61D6321EC002DE5C8 /* divider_geometry.cpp */; };
@@ -297,8 +299,12 @@
 		C601590A1DD7564900048138 /* ofxDelaunay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDelaunay.h; sourceTree = "<group>"; };
 		C6151136D101F857DAE12722 /* ofxCvImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvImage.cpp; sourceTree = SOURCE_ROOT; };
 		C61D3DACE506E4A1C3A6D782 /* highgui.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = highgui.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/highgui/highgui.hpp; sourceTree = SOURCE_ROOT; };
+		C6362F271DD9BB920031C223 /* ofxTrueTypeFontUC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTrueTypeFontUC.cpp; sourceTree = "<group>"; };
+		C6362F281DD9BB920031C223 /* ofxTrueTypeFontUC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTrueTypeFontUC.h; sourceTree = "<group>"; };
 		C65A89034372885C3F7259F5 /* superres.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = superres.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/superres/superres.hpp; sourceTree = SOURCE_ROOT; };
 		C66C6414C8B86FDB99ED3B70 /* core.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = core.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/core.hpp; sourceTree = SOURCE_ROOT; };
+		C66D00711DD97F8C0070FA74 /* dmMeasureTool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dmMeasureTool.cpp; sourceTree = "<group>"; };
+		C66D00721DD97F8C0070FA74 /* dmMeasureTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dmMeasureTool.h; sourceTree = "<group>"; };
 		C6937888E126BADC8777423B /* OscTypes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OscTypes.h; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscTypes.h; sourceTree = SOURCE_ROOT; };
 		C696F16A1D7143FE00B2E2B3 /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		C696F1711D7169F700B2E2B3 /* ofxaddons_thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ofxaddons_thumbnail.png; sourceTree = "<group>"; };
@@ -987,6 +993,24 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		C6362F1C1DD9BB920031C223 /* ofxTrueTypeFontUC */ = {
+			isa = PBXGroup;
+			children = (
+				C6362F261DD9BB920031C223 /* src */,
+			);
+			name = ofxTrueTypeFontUC;
+			path = ../../../addons/ofxTrueTypeFontUC;
+			sourceTree = "<group>";
+		};
+		C6362F261DD9BB920031C223 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				C6362F271DD9BB920031C223 /* ofxTrueTypeFontUC.cpp */,
+				C6362F281DD9BB920031C223 /* ofxTrueTypeFontUC.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		C696F16B1D7169F700B2E2B3 /* ofxKsmrFragmentFx */ = {
 			isa = PBXGroup;
 			children = (
@@ -1184,6 +1208,7 @@
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
+				C6362F1C1DD9BB920031C223 /* ofxTrueTypeFontUC */,
 				6948EE371B920CB800B5AC1A /* local_addons */,
 				E4B69B5B0A3A1756003C02F2 /* chamberDebug.app */,
 			);
@@ -1195,6 +1220,8 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
+				C66D00721DD97F8C0070FA74 /* dmMeasureTool.h */,
+				C66D00711DD97F8C0070FA74 /* dmMeasureTool.cpp */,
 				C6E6D1971D58D89B001A49DB /* divider */,
 			);
 			path = src;
@@ -1359,6 +1386,7 @@
 				2023EF517ED2D8B397511D4B /* Helpers.cpp in Sources */,
 				311DF864378748129984EA1D /* Kalman.cpp in Sources */,
 				C602002DE761F9B52DB4400A /* ObjectFinder.cpp in Sources */,
+				C6362F2C1DD9BB920031C223 /* ofxTrueTypeFontUC.cpp in Sources */,
 				7CDAD32BE4FA46701E3552C7 /* RunningBackground.cpp in Sources */,
 				10B69DE456AED1288FC9316B /* Tracker.cpp in Sources */,
 				A6668C5B1272D7FCD5B5A16F /* Utilities.cpp in Sources */,
@@ -1402,6 +1430,7 @@
 				933A2227713C720CEFF80FD9 /* tinyxml.cpp in Sources */,
 				C6E6D1A71D5A0E1A001A49DB /* divider_pattern.cpp in Sources */,
 				9D44DC88EF9E7991B4A09951 /* tinyxmlerror.cpp in Sources */,
+				C66D00731DD97F8C0070FA74 /* dmMeasureTool.cpp in Sources */,
 				5A4349E9754D6FA14C0F2A3A /* tinyxmlparser.cpp in Sources */,
 				C696F1841D7169F700B2E2B3 /* ofxKsmrFragFXUnit.cpp in Sources */,
 			);
@@ -1661,6 +1690,7 @@
 					../../../addons/ofxOpenCv/libs/opencv/lib/osx/opencv.a,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1739,6 +1769,7 @@
 					../../../addons/ofxOpenCv/libs/opencv/lib/osx/opencv.a,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = app;
 				baseConfigurationReference = E4EB6923138AFD0F00A09F29;
 			};

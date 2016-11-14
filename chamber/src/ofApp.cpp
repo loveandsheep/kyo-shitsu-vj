@@ -4,6 +4,8 @@
 void ofApp::setup()
 {
 
+	ofSetFrameRate(60);
+	
 	mainSketch.setup();
 	ofSetCircleResolution(50);
 	
@@ -27,8 +29,9 @@ void ofApp::setup()
 //--------------------------------------------------------------
 void ofApp::update()
 {
+	dm::measureTool::getInstance().setStartPoint("update");
+	
 	fps = ofGetFrameRate();
-//	video.update();
 	mainSketch.update();
 	patterns.update();
 	
@@ -71,11 +74,15 @@ void ofApp::update()
 			mainSketch.colorShuffle();
 		}
 	}
+
+	dm::measureTool::getInstance().setEndPoint("update");
 }
 
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+	dm::measureTool::getInstance().setStartPoint("drawn");
+	
 	mainSketch.begin();
 	{
 		ofClear(0, 0, 0, 255);
@@ -94,10 +101,15 @@ void ofApp::draw()
 	}
 	mainSketch.end();
 	
+
 	/*output*/
 	ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-	mainSketch.genShading();
 	
+	
+	dm::measureTool::getInstance().setStartPoint("genShade");
+	mainSketch.genShading();
+	dm::measureTool::getInstance().setEndPoint("genShade");
+
 	/*Grid*/
 	mainSketch.buffer_dst.begin();
 	mainSketch.buffer_dst.end();
@@ -105,24 +117,23 @@ void ofApp::draw()
 	ofBackground(0, 0, 0);
 	ofSetColor(255);
 	mainSketch.buffer_dst.draw(1100, 400, 820, 461);
+
 	ofSetColor(255 * master);
-//	mainSketch.buffer_dst.draw(1920, 152, 1280, 720);
 	mainSketch.buffer_dst.draw(1920, 0, 1920, 1080);
 	mainSketch.buffer_dst.draw(1100, 0, 640, 360);
-	mainSketch.currentVid->draw(460, 0, 640, 360);
-	for (int i = 0;i < mainSketch.video.size();i++)
-	{
-		mainSketch.video[i]->draw(460 + (i % 2) * 320, 360 + i / 2 * 180, 320, 180);
-	}
+	mainSketch.drawVideoSelector(460, 0);
 	
 	ofNoFill();
 	ofSetColor(255);
 	ofDrawRectangle(1100, 0, 640, 360);
 	ofFill();
+	
 	if (bDebug) mainSketch.drawColorSelector(230, 30);
 	
-	ofSetColor(255);
+	dm::measureTool::getInstance().setEndPoint("drawn");
 
+	ofSetColor(255);
+	
 	static int step = 30;
 	if (autoBang)
 	{
@@ -159,7 +170,21 @@ void ofApp::draw()
 				keyPressed(ky[int(ofRandom(100)) % ky.size()]);
 		}
 	}
-	if (bDebug) gui.draw();
+
+	if (bDebug)
+	{
+		gui.draw();
+	}
+	
+	if (bDebug)
+	{
+		ofPushMatrix();
+		ofTranslate(0, 800);
+		dm::measureTool::getInstance().draw();
+		ofPopMatrix();
+	}
+	
+	if (bPreview) mainSketch.buffer_dst.draw(0, 0, 1920, 1080);
 }
 
 //--------------------------------------------------------------
@@ -205,6 +230,9 @@ void ofApp::keyPressed(int key){
 	
 	if (key == 'g')
 		bDebug ^= true;
+	
+	if (key == 'p')
+		bPreview ^= true;
 	
 	if (key == ' ')
 		mainSketch.currentVid->setPosition(ofRandom(0.0, 0.8));

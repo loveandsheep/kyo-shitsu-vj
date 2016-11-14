@@ -48,6 +48,7 @@ class ofApp : public ofBaseApp{
 	//ズーム
 	//エフェクト
 	
-	bool bDebug = false;
+	bool bDebug = true;
+	bool bPreview = false;
 	ofVideoPlayer video;
 };
