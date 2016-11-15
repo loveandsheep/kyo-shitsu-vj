@@ -25,7 +25,7 @@ void sketch::setup()
 	initShader();
 	
 	pal.addPreset("test"	, 0x1f271b, 0x19647e, 0xee964b, 0xf4d35e, 0x28AFB0);
-	pal.addPreset("autumn"	, 0x754f44, 0xec7357, 0xfdd692, 0xfbffb9, 0xe1ce7a);
+	pal.addPreset("autumn"	, 0x754f44, 0xec7357, 0xe1ce7a, 0xfdd692, 0xfbffb9);
 	pal.addPreset("cmg"		, 0x3D405B, 0xE0390B, 0xDAE0F2, 0xEFE9E7, 0xF5F0F6);
 	pal.addPreset("snow"	, 0x353535, 0x284B63, 0x3C6E71, 0xD9D9D9, 0xFFFFFF);
 	pal.addPreset("DeepVio"	, 0x4A0D67, 0x473198, 0xADFC92, 0x9BF3F0, 0xDAFFED);
@@ -182,8 +182,6 @@ void sketch::colorShuffle()
 		++it;
 	}
 	
-	ovr_choice = ofRandom(100);
-	track.trackPreset(ofRandom(100));
 }
 
 void sketch::update()

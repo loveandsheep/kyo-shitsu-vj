@@ -60,6 +60,24 @@ void ofApp::update()
 		if (m.getAddress() == "/color")
 			mainSketch.colorShuffle();
 		
+		if (m.getAddress() == "/overlay")
+			mainSketch.ovr_choice = m.getArgAsInt(0);
+		
+		if (m.getAddress() == "/video")
+		{
+			int idx = m.getArgAsInt(0) % mainSketch.video.size();
+			if (mainSketch.currentVid != mainSketch.video[idx])
+			{
+				mainSketch.currentVid->stop();
+				mainSketch.currentVid = mainSketch.video[idx];
+				mainSketch.currentVid->setPosition(ofRandom(0.2, 0.8));
+				mainSketch.currentVid->play();
+			}
+		}
+		
+		if (m.getAddress() == "/optflow")
+			mainSketch.track.trackPreset(m.getArgAsInt(0));
+		
 		if (m.getAddress() == "/auto")
 			autoBang = (m.getArgAsInt(0) == 1);
 		
@@ -70,9 +88,7 @@ void ofApp::update()
 			mainSketch.fx_mix = m.getArgAsFloat(0);
 		
 		if (m.getAddress() == "/channel/note/Velocity")
-		{
 			mainSketch.colorShuffle();
-		}
 	}
 
 	dm::measureTool::getInstance().setEndPoint("update");
