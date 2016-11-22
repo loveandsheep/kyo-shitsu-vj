@@ -39,7 +39,13 @@ void tracker::update(ofPixels & image)
 	if (ofGetFrameNum() > 120)
 	{
 		if (ofGetFrameNum() % 120 == 100) flow.resetFlow();
-		flow.calcOpticalFlow(image);
+		
+		try {
+			flow.calcOpticalFlow(image);
+		} catch (cv::Exception err) {
+			cout << "err" << endl;
+		}
+
 	}
 }
 

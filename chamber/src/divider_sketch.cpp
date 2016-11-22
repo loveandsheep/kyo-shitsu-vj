@@ -46,11 +46,22 @@ void sketch::setup()
 	pal.addPreset("crayola"	, 0x483C46, 0x3C6E71, 0xF4743B, 0x70AE6E, 0xBEEE62);
 	pal.addPreset("opera"	, 0x240115, 0xDE3C4B, 0xC884A6, 0xE7BBE3, 0x84FFD2);
 	pal.addPreset("cyan"	, 0x23001E, 0x1D918D, 0xFF5151, 0xFFBA49, 0xD7DDE2);
+	
+	//kyoushitsu_tuika
+	pal.addPreset("ASPARAGUS", 0x3A5743, 0x3B7080, 0xADE25D, 0xFCEC52, 0xCFFFB3);
+	pal.addPreset("ming", 0x3A0842, 0x3B7080, 0x7FC6A4, 0xFAF33E, 0xD6F8D6);
+	pal.addPreset("magenda", 0x706F6F, 0xEF27A6, 0xFF299C, 0xB0B5B3, 0xDBDBDB);
+	pal.addPreset("liver", 0x561F37, 0x453823, 0x39A2AE, 0x55DBCB, 0x75E4B3);
+	pal.addPreset("palepink", 0xFF99C8, 0xE4C1F9, 0xA9DEF9, 0xD0F4DE, 0xFCF6BD);
+	pal.addPreset("infra", 0xED4D6E, 0xDB6C79, 0xDEB986, 0x7DDF64, 0xC0DF85);
+	pal.addPreset("indigo", 0x264653, 0x268E82, 0xE76F51, 0xDEB986, 0xC0DF85);
+	pal.addPreset("horses", 0x564138, 0x2E86AB, 0xF24236, 0xF5F749, 0xF5F749);
+	
 	//	pal.addPreset(""	, 0x, 0x, 0x, 0x, 0x);
-	currentPalette = "cmg";
+	currentPalette = pal.presets.begin()->first;
 	
 	fx.getfxUnit(KSMR_FRAGFX_NOISE)->bEnable = true;
-	fx.getfxUnit(KSMR_FRAGFX_NOISE)->u_Volume = 0.07;
+	fx.getfxUnit(KSMR_FRAGFX_NOISE)->u_Volume = 0.08;
 	
 	ofDirectory dir;
 	dir.listDir(ofToDataPath("videos"));
@@ -104,6 +115,7 @@ void sketch::drawVideoSelector(int x, int y)
 					currentVid = video[i];
 					video[i]->play();
 					video[i]->setPosition(ofRandom(0, 0.8));
+					track.flow.resetFlow();
 				}
 			}
 		}
@@ -236,8 +248,8 @@ void sketch::genShading()
 	
 	fx.getfxUnit(KSMR_FRAGFX_FRINGE)->bEnable		= ofRandomuf() < fx_mix || fx_mix > 0.3;
 	fx.getfxUnit(KSMR_FRAGFX_TEXCHIP)->bEnable		= ofRandomuf() / 5.0 < fx_mix;
-	fx.getfxUnit(KSMR_FRAGFX_VERTNOISE)->bEnable	= ofRandomuf() * 2.0 < fx_mix;
-	fx.getfxUnit(KSMR_FRAGFX_VERTSLIDE)->bEnable	= ofRandomuf() * 3.0 < fx_mix;
+	fx.getfxUnit(KSMR_FRAGFX_VERTNOISE)->bEnable	= ofRandomuf() * 1.0 < fx_mix;
+	fx.getfxUnit(KSMR_FRAGFX_VERTSLIDE)->bEnable	= ofRandomuf() * 1.5 < fx_mix;
 	fx.getfxUnit(KSMR_FRAGFX_WATER)->bEnable		= ofRandomuf() * 2.0 < fx_mix;
 	fx.getfxUnit(KSMR_FRAGFX_INVERT)->bEnable		= (ofRandomuf() * 3.0 < fx_mix) && fx_mix > 0.9;
 	

@@ -72,6 +72,7 @@ void ofApp::update()
 				mainSketch.currentVid = mainSketch.video[idx];
 				mainSketch.currentVid->setPosition(ofRandom(0.2, 0.8));
 				mainSketch.currentVid->play();
+				mainSketch.track.flow.resetFlow();
 			}
 		}
 		
