@@ -24,6 +24,8 @@ void ofApp::setup()
 	gui.add(enable_circle.set("CIRCLE", true));
 	
 	receiver.setup(12400);
+	
+	kyo_logo.load("kyo_logo.png");
 }
 
 //--------------------------------------------------------------
@@ -85,8 +87,14 @@ void ofApp::update()
 		if (m.getAddress() == "/auto_volume")
 			geom_volume = ofMap(m.getArgAsFloat(0), 0.0, 1.0, 10, 200);
 		
+		if (m.getAddress() == "/logo")
+			logo_transp = m.getArgAsFloat(0);
+		
 		if (m.getAddress() == "/fx")
+		{
+			cout << "val = " << m.getArgAsFloat(0) << endl;
 			mainSketch.fx_mix = m.getArgAsFloat(0);
+		}
 		
 		if (m.getAddress() == "/channel/note/Velocity")
 			mainSketch.colorShuffle();
@@ -118,18 +126,25 @@ void ofApp::draw()
 	}
 	mainSketch.end();
 	
-
 	/*output*/
 	ofEnableBlendMode(OF_BLENDMODE_ALPHA);
 	
 	
+	mainSketch.buffer.begin();
+	ofSetRectMode(OF_RECTMODE_CENTER);
+	ofPushMatrix();
+	ofTranslate(960, 540);
+	ofScale(0.3, 0.3);
+	ofSetColor(255, logo_transp * 255.0);
+	kyo_logo.draw(0 ,0);
+	ofSetColor(255);
+	ofPopMatrix();
+	ofSetRectMode(OF_RECTMODE_CORNER);
+	mainSketch.buffer.end();
+	
 	dm::measureTool::getInstance().setStartPoint("genShade");
 	mainSketch.genShading();
 	dm::measureTool::getInstance().setEndPoint("genShade");
-
-	/*Grid*/
-	mainSketch.buffer_dst.begin();
-	mainSketch.buffer_dst.end();
 	
 	ofBackground(0, 0, 0);
 	ofSetColor(255);

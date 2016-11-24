@@ -51,4 +51,7 @@ class ofApp : public ofBaseApp{
 	bool bDebug = true;
 	bool bPreview = false;
 	ofVideoPlayer video;
+	
+	ofImage kyo_logo;
+	float logo_transp = 0;
 };
