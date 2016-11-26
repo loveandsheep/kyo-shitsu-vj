@@ -12,7 +12,7 @@ void ofApp::setup()
 	gui.setup();
 	gui.add(fps.set("fps", 60.0, 20.0, 90.0));
 	gui.add(geom_volume.set("volume", 55, 10, 200));
-	gui.add(master.set("master", 1.0, 0.0, 1.0));
+	gui.add(master.set("master", 0.0, 0.0, 1.0));
 	gui.add(mainSketch.fx_mix.set("fx", 0.0, 0.0, 0.3));
 	gui.add(mainSketch.b3D.set("3DView", false));
 	gui.add(autoBang.set("auto", true));
@@ -54,6 +54,11 @@ void ofApp::update()
 			enable_lines = m.getArgAsInt(2);
 			enable_triangle = m.getArgAsInt(3);
 			enable_circle = m.getArgAsInt(4);
+		}
+		
+		if (m.getAddress() == "/seek")
+		{
+			mainSketch.currentVid->setPosition(m.getArgAsFloat(0));
 		}
 		
 		if (m.getAddress() == "/3d")
@@ -153,7 +158,11 @@ void ofApp::draw()
 	ofSetColor(255 * master);
 	mainSketch.buffer_dst.draw(1920, 0, 1920, 1080);
 	mainSketch.buffer_dst.draw(1100, 0, 640, 360);
+	
+	ofSetColor(255);
+	ofDrawBitmapStringHighlight("MASTER", 1110, 15);
 	mainSketch.drawVideoSelector(460, 0);
+	mainSketch.drawSeekBar(460, 0);
 	
 	ofNoFill();
 	ofSetColor(255);

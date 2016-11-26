@@ -37,6 +37,7 @@ namespace divider{
 		void genShading();
 		void drawColorSelector(int x, int y);
 		void drawVideoSelector(int x, int y);
+		void drawSeekBar(int x, int y);
 		void colorShuffle();
 		
 		int ovr_choice = 0;

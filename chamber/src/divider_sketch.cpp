@@ -24,7 +24,7 @@ void sketch::setup()
 	
 	initShader();
 	
-	pal.addPreset("test"	, 0x1f271b, 0x19647e, 0xee964b, 0xf4d35e, 0x28AFB0);
+	pal.addPreset("test"	, 0x1f271b, 0x19647e, 0xee964b, 0x28AFB0, 0xf4d35e);
 	pal.addPreset("autumn"	, 0x754f44, 0xec7357, 0xe1ce7a, 0xfdd692, 0xfbffb9);
 	pal.addPreset("cmg"		, 0x3D405B, 0xE0390B, 0xDAE0F2, 0xEFE9E7, 0xF5F0F6);
 	pal.addPreset("snow"	, 0x353535, 0x284B63, 0x3C6E71, 0xD9D9D9, 0xFFFFFF);
@@ -91,6 +91,45 @@ void sketch::addVideo(string path)
 	video.back()->setPosition(0.0);
 }
 
+void sketch::drawSeekBar(int x, int y)
+{
+	ofPushMatrix();
+	ofTranslate(x, y);
+	
+	ofRectangle area = ofRectangle(0, 0, 640, 20);
+	float pos = currentVid->getPosition();
+	
+	ofSetColor(0, 150);
+	ofDrawRectangle(area);
+	ofSetColor(255);
+	ofDrawLine(area.x, area.y + area.height / 2.0,
+			   area.x + area.width, area.y + area.height / 2.0);
+	
+	ofSetRectMode(OF_RECTMODE_CENTER);
+	ofDrawRectangle(area.x + area.width * pos, area.y + area.height / 2.0, 5, 20);
+	ofSetRectMode(OF_RECTMODE_CORNER);
+	
+	ofPopMatrix();
+	
+	ofVec2f mp = ofVec2f(ofGetMouseX() - x, ofGetMouseY() - y);
+	static bool mouseReleased = true;
+	
+	if (area.inside(mp))
+	{
+		if (mouseReleased && ofGetMousePressed())
+		{
+			mouseReleased = false;
+			float tg = mp.x / float(area.width);
+			currentVid->setPosition(tg);
+		}
+	}
+	if (!ofGetMousePressed())
+	{
+		mouseReleased = true;
+	}
+	
+}
+
 void sketch::drawVideoSelector(int x, int y)
 {
 	ofSetColor(255);
@@ -103,6 +142,10 @@ void sketch::drawVideoSelector(int x, int y)
 	{
 		ofRectangle rct = ofRectangle((i % 2) * 320, 360 + i / 2 * 180,
 									  320, 180);
+		ofNoFill();
+		ofSetColor(255);
+		ofDrawRectangle(rct);
+		ofFill();
 		video[i]->draw(rct);
 		
 		if (ofGetMousePressed())
